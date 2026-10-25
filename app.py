@@ -33,21 +33,38 @@ def create_window():
         text = input_box.get("1.0", "end-1c")
         result_label.config(text=f"字符总数：{count_characters(text)}")
 
+    def clear_input():
+        input_box.delete("1.0", "end")
+        result_label.config(text="字符总数：0")
+        input_box.focus_set()
+
+    button_frame = tk.Frame(window)
+    button_frame.pack(pady=(0, 16))
+
     count_button = tk.Button(
-        window,
+        button_frame,
         text="统计字数",
         width=16,
         font=("Microsoft YaHei UI", 11),
         command=update_count,
     )
-    count_button.pack(pady=(0, 16))
+    count_button.pack(side="left", padx=(0, 8))
+
+    clear_button = tk.Button(
+        button_frame,
+        text="清空",
+        width=16,
+        font=("Microsoft YaHei UI", 11),
+        command=clear_input,
+    )
+    clear_button.pack(side="left", padx=(8, 0))
 
     input_box.focus_set()
-    return window, input_box, result_label, count_button
+    return window, input_box, result_label, count_button, clear_button
 
 
 def main():
-    window, _input_box, _result_label, _count_button = create_window()
+    window, _input_box, _result_label, _count_button, _clear_button = create_window()
     window.mainloop()
 
 
